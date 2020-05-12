@@ -32,8 +32,23 @@ for idx, main_intent in enumerate(main_intents):
 x = count_intent.values()
 #sorted(count_intent)
 
+print(x)
 print(sorted(count_intent.items(), key=lambda k: k[1], reverse=True))
 
 #count_intent.s
 #print(count_intent.sort())
 
+selected_intents = {}
+writer = pd.ExcelWriter('simple-report.xlsx', engine='xlsxwriter')
+for key, val in count_intent.items():
+    if val >= 100:
+        selected_intents[key] = result_intents[key]
+        df = pd.DataFrame.from_dict(selected_intents[key])
+        df.to_excel(writer, sheet_name=key)
+        #print(val)
+        # store list
+
+
+#df = pd.DataFrame.from_dict(selected_intents)
+#df_footer.to_excel(writer, startcol=2, index =False)
+writer.save()
